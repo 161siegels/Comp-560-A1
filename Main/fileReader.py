@@ -7,7 +7,7 @@ def readFromFile(file_name):
         "connections": [],
     }
 
-    input_type = inputs.keys()
+    input_type = list(inputs.keys())
     type_iterator = iter(input_type)
     current = next(type_iterator)
 
@@ -17,12 +17,7 @@ def readFromFile(file_name):
             current = next(type_iterator)
             continue
 
-        if current == "colors":
-            inputs["colors"].append(line.rstrip())
-        elif current == "states":
-            inputs["states"].append(line.rstrip())
-        else:
-            inputs["connections"].append(line.rstrip())
+        inputs[current].append(line.rstrip())
 
     file.close()
     return inputs
