@@ -8,6 +8,7 @@ from Main.controller import Controller
 def main():
     file_name = checkArguments()
     inputs: str = readFromFile(file_name)
+    print(inputs)
     c = Controller(inputs)
     all_states = c.organizeInput()
     for s in all_states["states"]:

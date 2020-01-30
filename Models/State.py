@@ -1,8 +1,12 @@
+from Models.Domain import Domain
+
+
 class State:
 
-    def __init__(self, name):
+    def __init__(self, name, colors):
         self.name = name
         self.color = ""
+        self.domain = Domain(colors)
         self.connected_states = []
 
     def addConnectedState(self, state):
@@ -14,4 +18,4 @@ class State:
 
     def __repr__(self):
         return "State: " + self.name + ", Color: " + self.color + ", Connected states: " + \
-               str([x.name for x in self.connected_states])
+               str([x.name for x in self.connected_states]) + ", Domain: " + str(self.domain)

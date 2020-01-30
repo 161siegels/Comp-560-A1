@@ -13,7 +13,7 @@ class Controller:
     def organizeInput(self) -> Dict[str, list]:
 
         for s in self.input["states"]:
-            self.states.append(State(s))
+            self.states.append(State(s, self.input["colors"]))
 
         for c in self.input["connections"]:
             s1 = c.split(" ")[0]
@@ -23,9 +23,9 @@ class Controller:
                 self.connectStates(s1, s2)
             else:
                 if len([x for x in self.states if x.name == s1]) == 0:
-                    self.states.append(State(s1))
+                    self.states.append(State(s1, self.input["colors"]))
                 if len([x for x in self.states if x.name == s2]) == 0:
-                    self.states.append(State(s2))
+                    self.states.append(State(s2, self.input["colors"]))
                 self.connectStates(s1, s2)
 
         for s in self.states:
