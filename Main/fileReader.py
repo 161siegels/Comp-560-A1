@@ -1,4 +1,4 @@
-def readFromFile(file_name):
+def readFromFile(file_name: str) -> str:
 
     file = open(file_name, mode="r")
     inputs = {

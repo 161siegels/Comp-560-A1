@@ -1,13 +1,16 @@
+from typing import Dict, List
 from Models.State import State
+from Models.Edge import Edge
 
 
 class Controller:
 
-    def __init__(self, input):
+    def __init__(self, input: str):
         self.input = input
         self.states = []
+        self.edges = {}
 
-    def organizeInput(self):
+    def organizeInput(self) -> Dict[str, list]:
 
         for s in self.input["states"]:
             self.states.append(State(s))
@@ -25,7 +28,18 @@ class Controller:
                     self.states.append(State(s2))
                 self.connectStates(s1, s2)
 
-        return self.states
+        for s in self.states:
+            if len(s.connected_states) > 0:
+                for c in s.connected_states:
+                    if c.name in self.edges.keys():
+                        self.edges[c.name].append(Edge(c, s))
+                    else:
+                        self.edges[c.name] = [Edge(c, s)]
+
+        return {
+            "states": self.states,
+            "edges": self.edges,
+        }
 
     def connectStates(self, s1, s2):
         first_connected_state = [x for x in self.states if x.name == s1][0]

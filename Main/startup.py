@@ -9,7 +9,6 @@ def checkArguments() -> str:
         exit(1)
     else:
         if path.exists("Files/" + sys.argv[1]):
-            print("Found file")
             return "Files/" + sys.argv[1]
         else:
             print("File not found, please make sure it was entered correctly.")
