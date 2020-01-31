@@ -8,4 +8,5 @@ class Edge:
         self.state2: State = state2
 
     def __repr__(self):
-        return "Edge from " + str(self.state1.name) + " to " + str(self.state2.name)
+        return "Edge from " + str(self.state1.color) + " " + str(self.state1.name) + " to " \
+               + str(self.state2.color) + " " + str(self.state2.name)

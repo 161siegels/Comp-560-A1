@@ -18,6 +18,10 @@ class State:
         else:
             return False
 
+    def assignColor(self, color: str):
+        self.color = color
+        self.domain.removeColor(color)
+
     def __repr__(self):
         return "State: " + self.name + ", Color: " + self.color + ", Connected states: " + \
                str([x.name for x in self.connected_states]) + ", Domain: " + str(self.domain)

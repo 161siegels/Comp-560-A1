@@ -7,8 +7,8 @@ from Models.Edge import Edge
 
 class Controller:
 
-    def __init__(self, input: str):
-        self.input = input
+    def __init__(self, inputs: Dict[str, List]):
+        self.input = inputs
         self.states = []
         self.edges = {}
 

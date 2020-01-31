@@ -9,7 +9,7 @@ class Domain:
 
     def removeColor(self, color: str) -> bool:
         if color in self.available_colors:
-            self.available_colors.remove(color)
+            self.available_colors = [x for x in self.available_colors if x != color]
             return True
         else:
             return False
@@ -18,7 +18,7 @@ class Domain:
         self.available_colors = self.initial_colors
 
     def addColor(self, color: str):
-        self.available_colors.add(color)
+        self.available_colors += [color]
 
     def __repr__(self):
         return "Colors remaining: " + str(self.available_colors)
