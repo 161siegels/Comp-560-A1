@@ -1,13 +1,15 @@
+from typing import List
+
 from Models.Domain import Domain
 
 
 class State:
 
-    def __init__(self, name, colors):
-        self.name = name
-        self.color = ""
-        self.domain = Domain(colors)
-        self.connected_states = []
+    def __init__(self, name: str, colors: List[str]):
+        self.name: str = name
+        self.color: str = ""
+        self.domain: Domain = Domain(colors)
+        self.connected_states: List[State] = []
 
     def addConnectedState(self, state):
         if state not in self.connected_states:

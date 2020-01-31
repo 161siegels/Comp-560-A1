@@ -1,4 +1,6 @@
 from typing import Dict, List
+
+from Models.Graph import Graph
 from Models.State import State
 from Models.Edge import Edge
 
@@ -10,7 +12,7 @@ class Controller:
         self.states = []
         self.edges = {}
 
-    def organizeInput(self) -> Dict[str, list]:
+    def organizeInput(self) -> Graph:
 
         for s in self.input["states"]:
             self.states.append(State(s, self.input["colors"]))
@@ -36,10 +38,8 @@ class Controller:
                     else:
                         self.edges[c.name] = [Edge(c, s)]
 
-        return {
-            "states": self.states,
-            "edges": self.edges,
-        }
+        return Graph(self.states, self.edges)
+
 
     def connectStates(self, s1, s2):
         first_connected_state = [x for x in self.states if x.name == s1][0]
