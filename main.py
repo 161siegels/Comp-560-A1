@@ -15,9 +15,9 @@ def main():
     graph: Graph = c.organizeInput()
     graph2: Graph = c2.organizeInput()
     local_search: LocalSearch = LocalSearch(graph)
-    #print(local_search)
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
-    print(backtrack_search)
+    # print(backtrack_search)
+    local_search.graph.printColorConnections()
 
 
 if __name__ == '__main__':
