@@ -29,6 +29,7 @@ class BacktrackSearch:
         df=df[df.domain_length==min(df.domain_length)]
 
         to_color=df[df.empty_neighbors==max(df.empty_neighbors)].iloc[0,0]
+        visited_nodes.append(to_color)
         print(to_color)
 
     def __repr__(self):
