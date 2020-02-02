@@ -10,17 +10,21 @@ class State:
         self.color: str = ""
         self.domain: Domain = Domain(colors)
         self.connected_states: List[State] = []
+        self.constraining: int =0
 
     def addConnectedState(self, state):
         if state not in self.connected_states:
             self.connected_states.append(state)
+            self.constraining = self.constraining+1
             return True
         else:
             return False
 
     def assignColor(self, color: str):
         self.color = color
-        self.domain.removeColor(color)
+        for x in self.connected_states:
+            x.domain.removeColor(color)
+            x.constraining=x.constraining-1
 
     def __repr__(self):
         return "State: " + self.name + ", Color: " + self.color + ", Connected states: " + \
