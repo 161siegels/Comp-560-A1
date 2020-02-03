@@ -18,6 +18,7 @@ def main():
     #print(local_search)
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
     print(backtrack_search)
+    local_search.graph.printColorConnections()
 
 
 if __name__ == '__main__':

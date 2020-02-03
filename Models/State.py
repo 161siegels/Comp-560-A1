@@ -20,11 +20,14 @@ class State:
         else:
             return False
 
-    def assignColor(self, color: str):
+    def assignColor(self, color: str, method='backtrack'):
         self.color = color
-        for x in self.connected_states:
-            x.domain.removeColor(color)
-            x.constraining=x.constraining-1
+        if method == 'backtracking':
+            for x in self.connected_states:
+                x.domain.removeColor(color)
+                x.constraining=x.constraining-1
+        else:
+            self.domain.removeColor(color)
 
     def __repr__(self):
         return "State: " + self.name + ", Color: " + self.color + ", Connected states: " + \
