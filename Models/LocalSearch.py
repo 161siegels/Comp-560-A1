@@ -42,8 +42,12 @@ class LocalSearch:
                             break
                         bad_state = True
 
+<<<<<<< HEAD
             if iterations % 100 == 0:
                 print("iterations: " + str(iterations))
+=======
+            print("iterations: " + str(iterations))
+>>>>>>> Running, need to rename state
             iterations += 1
 
             if (not changed and not bad_state) or iterations >= 1000:
