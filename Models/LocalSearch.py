@@ -19,7 +19,7 @@ class LocalSearch:
         for s in self.graph.states:
             colors = s.domain.available_colors
             curr_color = random.choice(colors)
-            s.assignColor(curr_color)
+            s.assignColor(curr_color, method='backtrack')
 
     def correctColors(self, iterations: int):
 
