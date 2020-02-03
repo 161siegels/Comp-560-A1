@@ -12,7 +12,7 @@ def main():
     c: Controller = Controller(inputs)
     graph: Graph = c.organizeInput()
     local_search: LocalSearch = LocalSearch(graph)
-    print(local_search)
+    local_search.graph.printColorConnections()
 
 
 if __name__ == '__main__':

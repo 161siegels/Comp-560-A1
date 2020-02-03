@@ -10,6 +10,19 @@ class Graph:
         self.states: List[State] = states
         self.edges: Dict[str, Edge] = edges
 
+    def printColorConnections(self):
+        for s in self.states:
+            for c in s.connected_states:
+                print(s.color + " (" + s.name + ") to " + c.color + " (" + c.name + ")")
+        print(self.getIncorrectCount())
+
+    def getIncorrectCount(self):
+        sum: int = 0
+        for s in self.states:
+            if s.color in [c.color for c in s.connected_states if c.color == s.color]:
+                sum += 1
+        return sum
+
     def __repr__(self):
 
         output: str = "Graph with states:\n"
