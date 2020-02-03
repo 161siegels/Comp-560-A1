@@ -14,7 +14,7 @@ def main():
     c2: Controller = Controller(inputs)
     graph: Graph = c.organizeInput()
     graph2: Graph = c2.organizeInput()
-    #local_search: LocalSearch = LocalSearch(graph)
+    local_search: LocalSearch = LocalSearch(graph)
     #print(local_search)
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
     print(backtrack_search)
