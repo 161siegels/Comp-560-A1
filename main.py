@@ -15,11 +15,8 @@ def main():
     graph: Graph = c.organizeInput()
     graph2: Graph = c2.organizeInput()
     local_search: LocalSearch = LocalSearch(graph)
-<<<<<<< HEAD
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
-    # print(backtrack_search)
-=======
->>>>>>> Running, need to rename state
+    print(backtrack_search)
     local_search.graph.printColorConnections()
 
 
