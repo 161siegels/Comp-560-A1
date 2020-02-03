@@ -20,7 +20,7 @@ class State:
         else:
             return False
 
-    def assignColor(self, color: str, method='backtrack'):
+    def assignColor(self, color: str, method='backtracking'):
         self.color = color
         if method == 'backtracking':
             for x in self.connected_states:
