@@ -22,9 +22,12 @@ class State:
 
     def assignColor(self, color: str, method='backtracking'):
         self.color = color
+        self.domain.removeColor(color)
         if method == 'backtracking':
             for x in self.connected_states:
                 x.domain.removeColor(color)
+                if len(x.domain.available_colors)==1:
+                    x.assignColor(x.domain.available_colors[0])
                 x.constraining=x.constraining-1
         else:
             self.domain.removeColor(color)
