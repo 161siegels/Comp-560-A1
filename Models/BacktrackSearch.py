@@ -10,18 +10,20 @@ class BacktrackSearch:
         random.seed(123)
         self.graph: Graph = graph
         self.colors: List[str] = self.graph.states[0].domain.initial_colors
+        self.numSteps: int = 0
         #self.remaining: int = len(self.graph.states)
         self.randomAssign(self.findNextToColor())
 
     def randomAssign(self,state):
         #visited_nodes=[]
         #visited_nodes.append(to_color)
+        self.numSteps=1+self.numSteps
         curr_state=state
-        next_state=self.findNextToColor()
         for x in curr_state.domain.initial_colors:
             if x in curr_state.domain.available_colors:
                 curr_state.assignColor(x)
-                if not self.findNextToColor():
+                next_state=self.findNextToColor()
+                if not next_state:
                     return
                 self.randomAssign(next_state)
     def findNextToColor(self):
@@ -44,4 +46,4 @@ class BacktrackSearch:
         return to_color
 
     def __repr__(self):
-        return str(self.graph)
+        return str(self.graph) + "Number of steps needed to solve: " +str(self.numSteps)

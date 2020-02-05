@@ -10,15 +10,15 @@ def main():
     file_name: str = checkArguments()
     inputs: str = readFromFile(file_name)
     print(inputs)
-    c: Controller = Controller(inputs)
+    #c: Controller = Controller(inputs)
     c2: Controller = Controller(inputs)
-    graph: Graph = c.organizeInput()
+    #graph: Graph = c.organizeInput()
     graph2: Graph = c2.organizeInput()
-    local_search: LocalSearch = LocalSearch(graph)
+    #local_search: LocalSearch = LocalSearch(graph)
     #print(local_search)
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
     print(backtrack_search)
-    local_search.graph.printColorConnections()
+    #local_search.graph.printColorConnections()
 
 
 if __name__ == '__main__':
