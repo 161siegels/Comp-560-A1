@@ -26,7 +26,7 @@ class State:
         if method == 'backtracking':
             for x in self.connected_states:
                 x.domain.removeColor(color)
-                if len(x.domain.available_colors)==1:
+                if (x.color=='') & (len(x.domain.available_colors) == 1):
                     x.assignColor(x.domain.available_colors[0])
                 x.constraining=x.constraining-1
         else:
