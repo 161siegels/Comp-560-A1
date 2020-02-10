@@ -27,7 +27,6 @@ class LocalSearch:
 
         while True:
             changed: bool = False
-            bad_state = False
 
             for s in self.graph.states:
                 connected_colors: List[str] = [x.color for x in s.connected_states]
@@ -35,19 +34,20 @@ class LocalSearch:
                     continue
                 else:
                     for c in s.domain.available_colors:
-
                         if c not in connected_colors:
                             changed = True
-                            s.color = c
+                            s.assignColor(c)
                             break
-                        bad_state = True
+
+                    if s.updateSurroundingColors():
+                        changed = True
 
             if iterations % 100 == 0:
                 print("iterations: " + str(iterations))
                 
             iterations += 1
 
-            if (not changed and not bad_state) or iterations >= 1000:
+            if (not changed) or iterations >= 1000:
                 break
 
     def __repr__(self):

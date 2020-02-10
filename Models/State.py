@@ -29,6 +29,25 @@ class State:
         else:
             self.domain.removeColor(color)
 
+    def updateSurroundingColors(self) -> bool:
+        changed = False
+        for s in self.connected_states + [self]:
+            original_colors = [x for x in s.domain.available_colors]
+            s.domain.available_colors = [x for x in s.domain.initial_colors]
+            colors_to_remove: List[str] = []
+            for color in s.domain.available_colors:
+                for c in s.connected_states:
+                    if c.color == color:
+                        colors_to_remove.append(color)
+
+            for color in colors_to_remove:
+                s.domain.removeColor(color)
+
+            if s.domain.available_colors != original_colors:
+                changed = True
+
+        return changed
+
     def __repr__(self):
         return "State: " + self.name + ", Color: " + self.color + ", Connected states: " + \
                str([x.name for x in self.connected_states]) + ", Domain: " + str(self.domain)
