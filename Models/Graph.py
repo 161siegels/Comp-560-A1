@@ -20,7 +20,7 @@ class Graph:
     def getIncorrectCount(self):
         sum: int = 0
         for s in self.states:
-            if s.color in [c.color for c in s.connected_states if c.color == s.color]:
+            if s.color in [c.color for c in s.connected_states]:
                 sum += 1
         return sum
 
