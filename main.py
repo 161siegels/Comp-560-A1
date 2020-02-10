@@ -14,12 +14,13 @@ def main():
     c2: Controller = Controller(inputs)
     graph: Graph = c.organizeInput()
     graph2: Graph = c2.organizeInput()
-    local_search: LocalSearch = LocalSearch(graph)
-    #print(local_search)
+    runLocalSearch(graph)
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
     print(backtrack_search)
-    local_search.graph.printColorConnections()
 
+def runLocalSearch(graph: Graph):
+    local_search: LocalSearch = LocalSearch(graph, 123)
+    local_search.localSearchController()
 
 if __name__ == '__main__':
     main()

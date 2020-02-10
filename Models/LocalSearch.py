@@ -1,27 +1,40 @@
 from typing import List
 from Models.Graph import Graph
 import random
+import time
 
 
 class LocalSearch:
 
-    def __init__(self, graph):
-        random.seed(123)
-        self.graph: Graph = graph
+    def __init__(self, graph, seed: int):
+        self.INITIAL_SEED = seed
+        self.INITIAL_GRAPH = graph
+        self.graph: Graph = self.INITIAL_GRAPH
         self.colors: List[str] = self.graph.states[0].domain.initial_colors
-        self.randomAssign()
-        print("Original-------------")
+
+    def localSearchController(self):
+        t_end = time.time() + 60
+        i: int = 0
+        while time.time() < t_end:
+            self.graph = self.INITIAL_GRAPH
+            random.seed(self.INITIAL_SEED + i)
+            self.randomAssign()
+            conflicts: int = self.correctColors()
+            print("Conflicts on iteration " + str(i) + ": " + str(conflicts) + "\n")
+            if conflicts == 0:
+                break
+            i += 1
         self.graph.printColorConnections()
-        print("New-------------------")
-        self.correctColors(iterations=0)
 
     def randomAssign(self):
         for s in self.graph.states:
-            colors = s.domain.available_colors
+            colors = s.domain.initial_colors
             curr_color = random.choice(colors)
-            s.assignColor(curr_color, method='localsearch')
+            s.color = curr_color
 
-    def correctColors(self, iterations: int):
+        print("initial incorrect: " + str(self.graph.getIncorrectCount()))
+
+    def correctColors(self) -> int:
 
         iterations = 0
 
@@ -41,14 +54,13 @@ class LocalSearch:
 
                     if s.updateSurroundingColors():
                         changed = True
-
-            if iterations % 100 == 0:
-                print("iterations: " + str(iterations))
                 
             iterations += 1
 
             if (not changed) or iterations >= 1000:
                 break
+
+        return self.graph.getIncorrectCount()
 
     def __repr__(self):
         return str(self.graph)
