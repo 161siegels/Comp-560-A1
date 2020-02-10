@@ -1,7 +1,9 @@
 from typing import List
 from Models.Graph import Graph
+from Models.staticHelpers import printProgress
 import random
 import time
+import sys
 
 
 class LocalSearch:
@@ -13,18 +15,30 @@ class LocalSearch:
         self.colors: List[str] = self.graph.states[0].domain.initial_colors
 
     def localSearchController(self):
-        t_end = time.time() + 60
+        iterations_per_dot: int = 1000
+        print("Beginning localsearch (each dot represents " + str(iterations_per_dot) + " iterations):")
         i: int = 0
+        min_conflicts: int = sys.maxsize
+        best_combination: str = ""
+
+        t_start = time.time()
+        t_end = t_start + 60
+
         while time.time() < t_end:
             self.graph = self.INITIAL_GRAPH
             random.seed(self.INITIAL_SEED + i)
             self.randomAssign()
             conflicts: int = self.correctColors()
-            print("Conflicts on iteration " + str(i) + ": " + str(conflicts) + "\n")
+            if conflicts < min_conflicts:
+                min_conflicts = conflicts
+                best_combination = self.graph.printColorConnections()
+
+            printProgress(i, iterations_per_dot)
             if conflicts == 0:
                 break
             i += 1
-        self.graph.printColorConnections()
+
+        print("\nIt took " + str(i) + " iterations to find the following combination with " + str(min_conflicts) + " conflicts:" + "\n" + best_combination)
 
     def randomAssign(self):
         for s in self.graph.states:
@@ -32,15 +46,12 @@ class LocalSearch:
             curr_color = random.choice(colors)
             s.color = curr_color
 
-        print("initial incorrect: " + str(self.graph.getIncorrectCount()))
-
     def correctColors(self) -> int:
 
         iterations = 0
 
         while True:
             changed: bool = False
-
             for s in self.graph.states:
                 connected_colors: List[str] = [x.color for x in s.connected_states]
                 if s.color not in connected_colors:

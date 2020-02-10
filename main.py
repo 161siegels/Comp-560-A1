@@ -9,7 +9,6 @@ from Models.BacktrackSearch import BacktrackSearch
 def main():
     file_name: str = checkArguments()
     inputs: str = readFromFile(file_name)
-    print(inputs)
     c: Controller = Controller(inputs)
     runLocalSearch(inputs, c)
     runBacktrackingSearch(inputs, c)

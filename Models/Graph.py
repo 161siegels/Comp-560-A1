@@ -11,10 +11,11 @@ class Graph:
         self.edges: Dict[str, Edge] = edges
 
     def printColorConnections(self):
+        output: str = ""
         for s in self.states:
             for c in s.connected_states:
-                print(s.color + " (" + s.name + ") to " + c.color + " (" + c.name + ")")
-        print(self.getIncorrectCount())
+                output += s.color + " (" + s.name + ") to " + c.color + " (" + c.name + ")\n"
+        return output
 
     def getIncorrectCount(self):
         sum: int = 0
