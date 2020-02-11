@@ -1,6 +1,7 @@
 from typing import List
 from Models.Graph import Graph
 from Models.staticHelpers import printProgress
+from Models.OutputWriter import OutputWriter
 import random
 import time
 import sys
@@ -8,11 +9,13 @@ import sys
 
 class LocalSearch:
 
-    def __init__(self, graph, seed: int):
+    def __init__(self, graph, seed: int, file_name: str):
         self.INITIAL_SEED = seed
         self.INITIAL_GRAPH = graph
         self.graph: Graph = self.INITIAL_GRAPH
         self.colors: List[str] = self.graph.states[0].domain.initial_colors
+        self.file_name = file_name
+        self.outputWriter: OutputWriter = OutputWriter(file_name, "localsearch")
 
     def localSearchController(self):
         iterations_per_dot: int = 1000
@@ -38,7 +41,12 @@ class LocalSearch:
                 break
             i += 1
 
-        print("\nIt took " + str(i) + " iterations to find the following combination with " + str(min_conflicts) + " conflicts:" + "\n" + best_combination)
+        output: str = "It took " + str(i) + " iterations to find the following combination with " + \
+                      str(min_conflicts) + " conflicts:" + "\n" + best_combination
+
+        self.outputWriter.writeToOutput(output)
+
+        print("\nThe localsearch results are located in " + self.outputWriter.file_name + "\n")
 
     def randomAssign(self):
         for s in self.graph.states:
