@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from Main.startup import checkArguments
 from Main.fileReader import readFromFile
 from Main.controller import Controller
@@ -8,7 +8,7 @@ from Models.BacktrackSearch import BacktrackSearch
 
 
 file_name: str = checkArguments()
-inputs: Dict[str, str] = readFromFile(file_name)
+inputs: Dict[str, List[str]] = readFromFile(file_name)
 c: Controller = Controller(inputs)
 
 

@@ -7,7 +7,7 @@ from Models.Edge import Edge
 
 class Controller:
 
-    def __init__(self, inputs: Dict[str, List]):
+    def __init__(self, inputs: Dict[str, List[str]]):
         self.input = inputs
         self.states = []
         self.edges = {}
@@ -39,7 +39,6 @@ class Controller:
                         self.edges[c.name] = [Edge(c, s)]
 
         return Graph(self.states, self.edges)
-
 
     def connectStates(self, s1, s2):
         first_connected_state = [x for x in self.states if x.name == s1][0]

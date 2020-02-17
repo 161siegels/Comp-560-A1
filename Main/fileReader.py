@@ -1,7 +1,7 @@
-from typing import Dict
+from typing import Dict, List
 
 
-def readFromFile(file_name: str) -> Dict[str, str]:
+def readFromFile(file_name: str) -> Dict[str, List[str]]:
 
     file = open(file_name, mode="r")
     inputs = {

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Dict
 from Models.Graph import Graph
 from Models.staticHelpers import printProgress
 from Models.OutputWriter import OutputWriter
@@ -19,9 +19,10 @@ class LocalSearch:
 
     def localSearchController(self):
         iterations_per_dot: int = 1000
-        print("Beginning localsearch (each dot represents " + str(iterations_per_dot) + " iterations):")
+        print("Beginning localsearch (each dot represents " + str(iterations_per_dot) + " new random starting points):")
         i: int = 0
         min_conflicts: int = sys.maxsize
+        best_steps: int = 0
         best_combination: str = ""
 
         t_start = time.time()
@@ -31,18 +32,21 @@ class LocalSearch:
             self.graph = self.INITIAL_GRAPH
             random.seed(self.INITIAL_SEED + i)
             self.randomAssign()
-            conflicts: int = self.correctColors()
+            results: Dict[str, int] = self.correctColors()
+            conflicts: int = results["conflicts"]
+            steps: int = results["steps"]
             if conflicts < min_conflicts:
                 min_conflicts = conflicts
                 best_combination = self.graph.printColorConnections()
+                best_steps = steps
 
             printProgress(i, iterations_per_dot)
             if conflicts == 0:
                 break
             i += 1
 
-        output: str = "It took " + str(i) + " iterations to find the following combination with " + \
-                      str(min_conflicts) + " conflicts:" + "\n" + best_combination
+        output: str = "It took " + str(i) + " random starting points to find the following combination with " + \
+                      str(min_conflicts) + " conflicts after " + str(best_steps) + " steps:" + "\n" + best_combination
 
         self.outputWriter.writeToOutput(output)
 
@@ -54,7 +58,7 @@ class LocalSearch:
             curr_color = random.choice(colors)
             s.color = curr_color
 
-    def correctColors(self) -> int:
+    def correctColors(self) -> Dict[str, int]:
 
         iterations = 0
 
@@ -69,17 +73,21 @@ class LocalSearch:
                         if c not in connected_colors:
                             changed = True
                             s.assignColor(c)
+                            iterations += 1
                             break
 
-                    if s.updateSurroundingColors():
+                    updates_to_surrounding_states: int = s.updateSurroundingColors()
+                    if updates_to_surrounding_states > 0:
+                        iterations += updates_to_surrounding_states
                         changed = True
-                
-            iterations += 1
 
-            if (not changed) or iterations >= 1000:
+            if not changed:
                 break
 
-        return self.graph.getIncorrectCount()
+        return {
+            "conflicts": self.graph.getIncorrectCount(),
+            "steps": iterations
+        }
 
     def __repr__(self):
         return str(self.graph)

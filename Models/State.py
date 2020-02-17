@@ -1,6 +1,7 @@
 from typing import List
 
 from Models.Domain import Domain
+import collections
 
 
 class State:
@@ -29,24 +30,23 @@ class State:
         else:
             self.domain.removeColor(color)
 
-    def updateSurroundingColors(self) -> bool:
-        changed = False
+    def updateSurroundingColors(self) -> int:
+        changes: int = 0
         for s in self.connected_states + [self]:
             original_colors = [x for x in s.domain.available_colors]
             s.domain.available_colors = [x for x in s.domain.initial_colors]
             colors_to_remove: List[str] = []
             for color in s.domain.available_colors:
                 for c in s.connected_states:
-                    if c.color == color:
+                    if c.color == color and (color not in colors_to_remove):
                         colors_to_remove.append(color)
 
             for color in colors_to_remove:
                 s.domain.removeColor(color)
 
-            if s.domain.available_colors != original_colors:
-                changed = True
+            changes += len(list(set(s.domain.available_colors) - set(original_colors)))
 
-        return changed
+        return changes
 
     def __repr__(self):
         return "State: " + self.name + ", Color: " + self.color + ", Connected states: " + \
