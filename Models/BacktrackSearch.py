@@ -51,4 +51,5 @@ class BacktrackSearch:
 
     #Prints the states colors and the number of steps needed to solve the search
     def __repr__(self):
-        return self.graph.printColorConnections()
+        self.graph.printStateColors()
+        return "Number of steps needed to solve: " + str(self.numSteps)
