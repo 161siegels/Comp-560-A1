@@ -18,6 +18,8 @@ class LocalSearch2:
         self.violations_to_beat = sys.maxsize
         self.result = Result()
         self.steps = 0
+        self.total_steps = 0
+        self.restarts = 0
 
     # This implementation of local search randomly assigns each state a color, then iterates through each state,
     # assigning a new color if it lowers the total number of constraint violations and skipping otherwise until
@@ -43,7 +45,9 @@ class LocalSearch2:
                 self.randomAssign()
         print("\nBest matches:\n" + self.result.graph.printColorConnections())
         print("Violations: " + str(self.result.violations))
-        print("Steps: " + str(self.result.steps))
+        print("Restarts: " + str(self.restarts))
+        print("Steps taken during best iteration: " + str(self.result.steps))
+        print("Total steps: " + str(self.total_steps))
 
     # Randomly shuffles states, then iterates through each one. At each state, we randomly assign it a color.
     # We then check to see if this has produced more constraint violations, if so we put the color back how it was
@@ -76,13 +80,17 @@ class LocalSearch2:
                 if self.calculateViolatedConstraints(new_graph) > current_violations:
                     state.assignColor(original_color)
                 else:
-                    self.steps += 1
+                    self.incrementSteps()
 
             violations = self.calculateViolatedConstraints(new_graph)
             if violations == 0:
                 break
 
         return Result(violations, new_graph, self.steps)
+
+    def incrementSteps(self):
+        self.steps += 1
+        self.total_steps += 1
 
     # Updates the best result found so far
     def setViolationsToBeat(self, result):
@@ -97,6 +105,7 @@ class LocalSearch2:
             curr_color = random.choice(colors)
             s.color = curr_color
         self.setViolationsToBeat(Result(self.calculateViolatedConstraints(self.graph), self.graph, 0))
+        self.restarts += 1
 
     # Calculates how many connected states share the same color
     def calculateViolatedConstraints(self, graph: Graph):
