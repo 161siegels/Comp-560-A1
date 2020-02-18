@@ -10,12 +10,19 @@ class Graph:
         self.states: List[State] = states
         self.edges: Dict[str, Edge] = edges
 
+    #prints the colors of each state in a given edge. Prints number of violations
     def printColorConnections(self):
         for s in self.states:
             for c in s.connected_states:
                 print(s.color + " (" + s.name + ") to " + c.color + " (" + c.name + ")")
         print(self.getIncorrectCount())
 
+    #prints the color of each state
+    def printStateColors(self):
+        for s in self.states:
+            print(s.color + " (" + s.name + ")")
+
+    #prints the number of edges violated
     def getIncorrectCount(self):
         sum: int = 0
         for s in self.states:
