@@ -10,20 +10,26 @@ class BacktrackSearch:
         random.seed(123)
         self.graph: Graph = graph
         self.colors: List[str] = self.graph.states[0].domain.initial_colors
-        #self.remaining: int = len(self.graph.states)
-        self.randomAssign(self.findNextToColor())
+        self.numSteps: int = 0
+        self.execute(self.findNextToColor())
 
-    def randomAssign(self,state):
-        #visited_nodes=[]
-        #visited_nodes.append(to_color)
+    #Runs the backtracking search. Calls function to color the state given in the parameter. Calls function
+    #to find the next state to color and then calls the function to color that state with one of the colors
+    #in its domain
+    def execute(self,state):
+        self.numSteps=1+self.numSteps
         curr_state=state
-        next_state=self.findNextToColor()
         for x in curr_state.domain.initial_colors:
             if x in curr_state.domain.available_colors:
                 curr_state.assignColor(x)
-                if not self.findNextToColor():
+                next_state=self.findNextToColor()
+                if not next_state:
                     return
-                self.randomAssign(next_state)
+                self.execute(next_state)
+
+    #Finds the next state to color by searching for a state that has not yet been colored and has the
+    #minimum domain length. It breaks ties by choosing the state with the maximum number of empty neighbors.
+    #Returns the state to be colored
     def findNextToColor(self):
         states = []
         domain_length = []
@@ -43,5 +49,6 @@ class BacktrackSearch:
         to_color = df[df.empty_neighbors == max(df.empty_neighbors)].iloc[0, 0]
         return to_color
 
+    #Prints the states colors and the number of steps needed to solve the search
     def __repr__(self):
         return self.graph.printColorConnections()
