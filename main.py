@@ -15,12 +15,12 @@ c: Controller = Controller(inputs)
 def main():
     runLocalSearch2()
     # runLocalSearch()
-    runBacktrackingSearch()
+    # runBacktrackingSearch()
 
 
 def runLocalSearch2():
     graph: Graph = c.organizeInput()
-    local_search2: LocalSearch2 = LocalSearch2(graph, 123, file_name)
+    local_search2: LocalSearch2 = LocalSearch2(graph)
     local_search2.search()
 
 
