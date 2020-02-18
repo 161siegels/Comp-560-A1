@@ -44,4 +44,4 @@ class BacktrackSearch:
         return to_color
 
     def __repr__(self):
-        return str(self.graph)
+        return self.graph.printColorConnections()
