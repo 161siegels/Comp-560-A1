@@ -15,7 +15,7 @@ c: Controller = Controller(inputs)
 def main():
     runLocalSearch2()
     # runLocalSearch()
-    # runBacktrackingSearch()
+    runBacktrackingSearch()
 
 
 def runLocalSearch2():
