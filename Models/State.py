@@ -28,7 +28,14 @@ class State:
                 x.domain.removeColor(color)
                 x.constraining=x.constraining-1
         else:
-            self.domain.removeColor(color)
+            for c in self.connected_states:
+                c.updateSurroundingColors()
+
+    def updateAvailableColors(self):
+        colors_to_remove = set()
+        for c in self.connected_states:
+            colors_to_remove.add(c.color)
+        self.domain.available_colors = [x for x in self.domain.initial_colors if x not in list(colors_to_remove)]
 
     def updateSurroundingColors(self) -> int:
         changes: int = 0

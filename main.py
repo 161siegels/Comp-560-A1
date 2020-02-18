@@ -5,7 +5,7 @@ from Main.controller import Controller
 from Models.Graph import Graph
 from Models.LocalSearch import LocalSearch
 from Models.BacktrackSearch import BacktrackSearch
-
+from Models.LocalSearch2 import LocalSearch2
 
 file_name: str = checkArguments()
 inputs: Dict[str, List[str]] = readFromFile(file_name)
@@ -13,8 +13,15 @@ c: Controller = Controller(inputs)
 
 
 def main():
-    runLocalSearch()
+    runLocalSearch2()
+    # runLocalSearch()
     runBacktrackingSearch()
+
+
+def runLocalSearch2():
+    graph: Graph = c.organizeInput()
+    local_search2: LocalSearch2 = LocalSearch2(graph, 123, file_name)
+    local_search2.search()
 
 
 def runLocalSearch():
