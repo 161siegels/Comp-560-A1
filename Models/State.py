@@ -29,7 +29,7 @@ class State:
                 x.constraining=x.constraining-1
         else:
             for c in self.connected_states:
-                c.updateSurroundingColors()
+                c.updateAvailableColors()
 
     def updateAvailableColors(self):
         colors_to_remove = set()
