@@ -40,6 +40,9 @@ class State:
             for c in self.connected_states:
                 c.updateAvailableColors()
 
+    def getNumberConflicts(self):
+        return len([c for c in self.connected_states if c.color == self.color])
+
     def updateAvailableColors(self):
         colors_to_remove = set()
         for c in self.connected_states:
