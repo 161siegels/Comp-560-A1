@@ -17,10 +17,10 @@ class BacktrackSearch:
     #to find the next state to color and then calls the function to color that state with one of the colors
     #in its domain
     def execute(self,state):
-        self.numSteps=1+self.numSteps
         curr_state=state
         for x in curr_state.domain.initial_colors:
             if x in curr_state.domain.available_colors:
+                self.numSteps = 1 + self.numSteps
                 curr_state.assignColor(x)
                 next_state=self.findNextToColor()
                 if not next_state:
