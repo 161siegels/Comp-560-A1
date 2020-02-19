@@ -22,10 +22,12 @@ class BacktrackSearch:
         for x in curr_state.domain.available_colors:
             if self.numLeft == 0:
                 return
-            if x in curr_state.domain.available_colors:
+            elif x in curr_state.domain.available_colors:
                 self.numSteps = 1 + self.numSteps
                 self.numLeft = curr_state.assignColor(x,left=self.numLeft)
                 next_state=self.findNextToColor()
+                if not next_state:
+                    return
                 self.execute(next_state)
 
     #Finds the next state to color by searching for a state that has not yet been colored and has the
