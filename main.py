@@ -31,7 +31,8 @@ def runLocalSearch():
 
 
 def runBacktrackingSearch():
-    graph2: Graph = c.organizeInput()
+    c2: Controller = Controller(inputs)
+    graph2: Graph = c2.organizeInput()
     backtrack_search: BacktrackSearch = BacktrackSearch(graph2)
     print(backtrack_search)
 

@@ -9,19 +9,22 @@ class BacktrackSearch:
     def __init__(self, graph):
         random.seed(123)
         self.graph: Graph = graph
-        self.colors: List[str] = self.graph.states[0].domain.initial_colors
         self.numSteps: int = 0
+        self.numLeft: int = len(graph.states)
         self.execute(self.findNextToColor())
 
     #Runs the backtracking search. Calls function to color the state given in the parameter. Calls function
     #to find the next state to color and then calls the function to color that state with one of the colors
-    #in its domain
-    def execute(self,state):
-        curr_state=state
-        for x in curr_state.domain.initial_colors:
+    #in its domain. Uses a for loop and recursive function call to call this method until there are no uncolored
+    #states left
+    def execute(self, state):
+        curr_state = state
+        for x in curr_state.domain.available_colors:
+            if self.numLeft == 0:
+                return
             if x in curr_state.domain.available_colors:
                 self.numSteps = 1 + self.numSteps
-                curr_state.assignColor(x)
+                self.numLeft = curr_state.assignColor(x,left=self.numLeft)
                 next_state=self.findNextToColor()
                 if not next_state:
                     return

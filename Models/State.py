@@ -27,7 +27,8 @@ class State:
     #connected to this newly assigned states to remove this color from their domains. If any
     #of the states have not been assigned a color and now have a domain length of 1, it will
     #recursively call this function for that state (and the remaining color in its domain).
-    def assignColor(self, color: str, method='backtracking'):
+    def assignColor(self, color: str,left=0, method='backtracking'):
+        left=left-1
         self.color = color
         self.domain.removeColor(color)
         if method == 'backtracking':
@@ -36,6 +37,7 @@ class State:
                 if (x.color=='') & (len(x.domain.available_colors) == 1):
                     x.assignColor(x.domain.available_colors[0])
                 x.constraining=x.constraining-1
+            return left
         else:
             for c in self.connected_states:
                 c.updateAvailableColors()
