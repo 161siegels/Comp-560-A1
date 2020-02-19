@@ -10,7 +10,7 @@ class BacktrackSearch:
         random.seed(123)
         self.graph: Graph = graph
         self.numSteps: int = 0
-        self.numLeft: int = len(graph.states)
+        self.visited: list = []
         self.execute(self.findNextToColor())
 
     #Runs the backtracking search. Calls function to color the state given in the parameter. Calls function
@@ -20,13 +20,14 @@ class BacktrackSearch:
     def execute(self, state):
         curr_state = state
         for x in curr_state.domain.available_colors:
-            if self.numLeft == 0:
+            if len(self.visited) == len(self.graph.states):
                 return
-            elif x in curr_state.domain.available_colors:
+            else:
                 self.numSteps = 1 + self.numSteps
-                self.numLeft = curr_state.assignColor(x,left=self.numLeft)
+                self.numLeft = curr_state.assignColor(x,visited_states=self.visited)
                 next_state=self.findNextToColor()
                 if not next_state:
+                    print("hello")
                     return
                 self.execute(next_state)
 
