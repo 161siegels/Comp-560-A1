@@ -2,6 +2,7 @@ import random
 import copy
 import time
 import sys
+from collections import deque
 from typing import List
 
 from Models.Graph import Graph
@@ -10,8 +11,7 @@ from Models.Result import Result
 
 class LocalSearch3:
 
-    # to do: delete while break, remove seed, make list of tied best colors and pick one randomly
-    # add random restarts
+    # to do: add random restarts
 
     def __init__(self, graph):
         self.INITIAL_GRAPH = graph
@@ -23,12 +23,11 @@ class LocalSearch3:
         self.steps = 0
         self.total_steps = 0
         self.restarts = 0
+        self.queue = deque(maxlen=len(self.colors) + 1)
 
     def search(self):
         self.randomAssign()
         t_start = time.time()
-        random.seed(123)
-        i = 0
 
         # runs for 1 minute
         while time.time() < t_start + self.SECONDS_TO_RUN:
@@ -41,9 +40,15 @@ class LocalSearch3:
             print(total_violations)
             if self.calculateViolatedConstraints(self.graph) == 0:
                 break
+            if len(list(set(self.queue))) < 3 and len(self.queue) == self.queue.maxlen:
+                # This is where it should restart
+                self.randomAssign()
+            self.queue.append(most_conflicted_state["state"].name)
+            print(self.queue)
 
+        print(self.queue)
         print("\nBest matches:\n" + self.result.graph.printColorConnections())
-        print("Violations: " + str(self.result.violations))
+        print("Violations: " + str(self.calculateViolatedConstraints(self.graph)))
         print("Restarts: " + str(self.restarts))
         print("Steps taken during best iteration: " + str(self.steps))
         print("Total steps: " + str(self.total_steps))
@@ -69,6 +74,7 @@ class LocalSearch3:
         chosen_color = random.choice(conflict_color_map[lowest_key])
 
         print("Most conflicted after: " + str(most_conflicted))
+        print(conflict_color_map)
         return {
             "color": chosen_color,
             "conflicts": lowest_key
@@ -85,6 +91,7 @@ class LocalSearch3:
                 conflict_state_map[conflicts] = [s]
         highest_key = max(conflict_state_map.keys())
         chosen_state = random.choice(conflict_state_map[max(conflict_state_map.keys())])
+        print(conflict_state_map)
         return {
             "state": chosen_state,
             "conflicts": highest_key
