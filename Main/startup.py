@@ -7,7 +7,7 @@ def checkArguments() -> str:
         mkdir("Outputs")
     if len(sys.argv) != 2:
         print("Usage: python main.py [TEXT FILENAME]")
-        print("For example: \"python main.py usa.txt\"")
+        print("For example: \"python3 main.py usa.txt\"")
         exit(1)
     else:
         if path.exists("Files/" + sys.argv[1]):

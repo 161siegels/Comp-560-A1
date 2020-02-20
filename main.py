@@ -4,7 +4,7 @@ from Main.fileReader import readFromFile
 from Main.controller import Controller
 from Models.Graph import Graph
 from Models.BacktrackSearch import BacktrackSearch
-from Models.LocalSearch3 import LocalSearch3
+from Models.LocalSearch import LocalSearch
 
 file_name: str = checkArguments()
 inputs: Dict[str, List[str]] = readFromFile(file_name)
@@ -20,7 +20,7 @@ def main():
 
 def runLocalSearch3():
     graph: Graph = c.organizeInput()
-    local_search3: LocalSearch3 = LocalSearch3(graph)
+    local_search3: LocalSearch = LocalSearch(graph)
     local_search3.search()
 
 

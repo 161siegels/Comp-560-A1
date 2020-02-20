@@ -1,5 +1,4 @@
 from typing import Dict, List
-
 from Models.Edge import Edge
 from Models.State import State
 

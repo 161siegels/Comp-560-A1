@@ -1,7 +1,5 @@
 from typing import List
-
 from Models.Domain import Domain
-import collections
 
 
 class State:

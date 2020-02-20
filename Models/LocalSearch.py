@@ -6,7 +6,7 @@ from typing import List
 from Models.Graph import Graph
 
 
-class LocalSearch3:
+class LocalSearch:
 
     def __init__(self, graph):
         self.SECONDS_TO_RUN = 60
