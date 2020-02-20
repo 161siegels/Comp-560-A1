@@ -20,8 +20,10 @@ class Graph:
 
     #prints the color of each state
     def printStateColors(self):
+        output = ""
         for s in self.states:
-            print(s.color + " (" + s.name + ")")
+            output += s.name + " - " + s.color + "\n"
+        return output
 
     #prints the number of edges violated
     def getIncorrectCount(self):
