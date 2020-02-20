@@ -13,12 +13,12 @@ c: Controller = Controller(inputs)
 
 def main():
     print("Running Local Search...")
-    runLocalSearch3()
+    runLocalSearch()
     print("\nRunning Backtracking Search...")
     runBacktrackingSearch()
 
 
-def runLocalSearch3():
+def runLocalSearch():
     graph: Graph = c.organizeInput()
     local_search3: LocalSearch = LocalSearch(graph)
     local_search3.search()
