@@ -122,9 +122,4 @@ class LocalSearch3:
 
     # Calculates how many connected states share the same color
     def calculateViolatedConstraints(self, graph: Graph):
-        violations = 0
-        for s in graph.states:
-            for c in s.connected_states:
-                if s.color == c.color:
-                    violations += 1
-        return violations
+        return sum([s.getNumberConflicts() for s in graph.states])

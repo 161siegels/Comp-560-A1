@@ -15,13 +15,5 @@ class Domain:
         else:
             return False
 
-    #Resets the domain to include all colors
-    def resetColors(self):
-        self.available_colors = self.initial_colors
-
-    #Adds a color to the domain
-    def addColor(self, color: str):
-        self.available_colors += [color]
-
     def __repr__(self):
         return "Colors remaining: " + str(self.available_colors)
