@@ -25,14 +25,6 @@ class Graph:
             output += s.name + " - " + s.color + "\n"
         return output
 
-    #prints the number of edges violated
-    def getIncorrectCount(self):
-        sum: int = 0
-        for s in self.states:
-            if s.color in [c.color for c in s.connected_states]:
-                sum += 1
-        return sum
-
     def __repr__(self):
 
         output: str = "Graph with states:\n"
