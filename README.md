@@ -6,5 +6,6 @@
   * For example: `python3 main.py usa.txt`
   
 ### Note:
-* Pandas must be installed to run this program
-* If it is not already installed, please run `pip install pandas` before running the program.
+* The program must be run with a version of Python 3, it will not work with Python 2.
+* Pandas must be installed to run this program.
+  * If it is not already installed, please run `pip install pandas` before running the program.
