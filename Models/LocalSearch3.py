@@ -50,6 +50,7 @@ class LocalSearch3:
             # the last reassign
             if (len(set(self.queue)) <= 2 and len(self.queue) == self.queue.maxlen) or \
                     self.steps_since_last_restart % 1000 == 0:
+                self.queue.clear()
                 self.randomAssign()
 
             # appends the just-changed state to the deque
